@@ -1,0 +1,31 @@
+<%= render 'public/header' %>
+
+<h2>ログイン</h2>
+
+<p>会員の方はこちらからログイン</p>
+  <%= form_with model: @customer, url: customer_session_path do |f| %>
+    <div class="field">
+      <%= f.label :メールアドレス %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :パスワード %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <!--<% if devise_mapping.rememberable? %>-->
+    <!--  <div class="field">-->
+    <!--    <%= f.check_box :remember_me %>-->
+    <!--    <%= f.label :remember_me %>-->
+    <!--  </div>-->
+    <!--<% end %>-->
+
+    <div class="actions">
+      <%= f.submit "ログイン", class: "btn btn-success" %>
+    </div>
+  <% end %>
+
+  <p>会員登録がお済みでない方</p>
+  <%= render "public/shared/links" %>
+</div>

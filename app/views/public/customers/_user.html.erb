@@ -1,0 +1,24 @@
+<!--ユーザー名の部分テンプレート-->
+  <div class="container px-5 px-sm-0">
+    <div class="row-md-1">
+      <h2>User info</h2>
+      <%= image_tag @customer.get_profile_image(80,80) %>
+
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>ニックネーム</th>
+            <th><%= @customer.name %>さん</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div class="col text-center">
+            <%= link_to edit_customer_path(customer.id), class:"btn btn-outline-secondary btn-block" do %>
+              <i class="fas fa-user-cog"></i>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
