@@ -20,10 +20,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     resources :customers, only: [:index, :show, :edit, :update]
 
     # genres
-    resources :genres, only: [:index, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update, :destroy]
 
     #items
-    resources :items, only: [:new, :create, :index, :show, :edit, :update]
+    resources :items, only: [:index, :show, :edit, :update]
 
   end
 
@@ -31,15 +31,22 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   scope module: :public do
 
     # customers
-    resources :customers, only: [:show, :edit, :create, :index]
-    get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
-    patch 'customers/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
+    resources :customers, only: [:index, :show, :edit, :update] do
+      member do 
+        get :favorites
+      end
+    end
     
+    # 退会確認用
+    get 'customers/:id/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+    # 論理削除用のルーティング
+    patch 'customers/:id/withdrawal' => 'customers#withdrawal', as: 'withdrawal'
+   
     # items
     resources :items, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
     
       # favorites
-      resources :favorites, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
   
       # comments
       resources :comments, only: [:create, :destroy]

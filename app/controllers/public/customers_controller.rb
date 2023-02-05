@@ -21,14 +21,23 @@ class Public::CustomersController < ApplicationController
     end
   end
 
+  # 退会機能
   def withdrawal
-    @customer = current_customer
+    @customer = Customer.find(params[:id])
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @customer.update(is_deleted: true)
     reset_session
-    redirect_to top_path
+    flash[:notice] = "退会処理を実行いたしました"
+    redirect_to root_path
   end
-
+  
+  # いいね一覧
+  def favorites
+    @customer = Customer.find(params[:id])
+    favorites = Favorite.where(customer_id: @customer.id).pluck(:item_id)
+    @favorite_items = Item.find(favorites)
+  end
+  
 # 登録データのストロングパラメータ
   private
 

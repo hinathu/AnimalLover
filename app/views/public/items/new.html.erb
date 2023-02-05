@@ -1,4 +1,43 @@
-<%= render 'public/header' %>
+<div class="container">
+  <%= render 'public/header' %>
+  <div class="row mt-5">
+    <h3>新規投稿</h3>
+  </div>
 
-<h1>Public::Items#new</h1>
-<p>Find me in app/views/public/items/new.html.erb</p>
+  <div class="row d-flex justify-content-center">
+    <% if flash[:item_created_error] %>
+      <span class="text-danger"><%= flash[:item_created_error] %></span>
+    <% end %>
+  </div>
+
+  <%= form_with model: @newitem, url: items_path, method: :post do |f| %>
+    <table class="table text-left table-borderless">
+      <tbody>
+        <tr>
+          <td>投稿画像</td>
+          <td><%= f.file_field :image, accept: "image/*" %></td>
+        </tr>
+        <tr>
+          <td>ジャンル</td>
+          <td><%= f.collection_select :genre_id, Genre.all, :id, :name %></td>
+        </tr>
+        <tr>
+          <td>ペットの名前</td>
+          <td><%= f.text_field :name %></td>
+        </tr>
+        <tr>
+          <td>ペットの種類</td>
+          <td><%= f.text_field :category %></td>
+        </tr>
+        <tr>
+          <td>本文</td>
+          <td><%= f.text_area :body %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= f.submit '投稿する', class: "btn btn-success mt-3 mx-auto" %></td>
+        </tr>
+        </tbody>
+    </table>
+  <% end %>
+</div>

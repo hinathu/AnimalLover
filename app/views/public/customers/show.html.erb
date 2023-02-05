@@ -1,31 +1,42 @@
-
 <div class="container">
-    <%= render 'public/header' %>
+  <%= render 'public/header' %>
     
   <div class="row">
-    <div class="col-md-3">
+    <div class="mt-5 col-md-3">
       <!--ユーザー名_部分テンプレート(_user)-->
-      <%= render 'user', customer: @customer %>
+      <%= render 'user', customer: @customer %></br>
+      <!--ユーザーがいいねした投稿一覧のリンク先-->
+      <%= link_to "お気に入り", favorites_customer_path(@customer) %></br>
+      <!--新規投稿機能-->
+      <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %>
     </div>
 
 <!--登録者の投稿一覧-->
-      <div class="col-md-8 offset-md-1">
-        <h2>投稿一覧</h2>
+      <div class="mt-5 col-md-8 offset-md-1">
+        <h4>投稿一覧</h4>
       
         <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>ペットのお名前</th>
+              <th>ペットの種類</th>
+              <th>コメント件数</th>
+            </tr>
+          </thead>
           <tbody>
             <% @items.each do |item| %>
               <tr>
                 <td>
                     <%= link_to item_path(item) do %>
-                      <%= image_tag item.get_image(300,300) %>
+                      <%= image_tag item.get_image(150,150) %>
                     <% end %>
                 </td>
+                <td><%= item.name %></td>
+                <td><%= item.category %></td>
                 <td>
-                  <%= item.name %>
-                </td>
-                <td>
-                  <%= item.category %>
+                  <%= item.comments.count %>件</br>
+                  ♡<%= item.favorites.count %> いいね
                 </td>
               </tr>
             <% end %>

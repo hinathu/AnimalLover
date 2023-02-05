@@ -1,4 +1,24 @@
-<%= render 'public/header' %>
+<!--退会確認画面-->
+<div class="container my-5">
+  <%= render 'public/header' %>
+  
+<div class="row mt-5">
+  <h3>本当に退会しますか？</h3>
+</div>
 
-<h1>Public::Customers#unsubscribe</h1>
-<p>Find me in app/views/public/customers/unsubscribe.html.erb</p>
+<div class="row mt-5">
+  <strong>
+    退会すると、会員登録情報や</br>
+    これまでの投稿一覧・お気に入り一覧が閲覧できなくなります。</br>
+    退会する場合は、「退会する」をクリックしてください。
+  </strong>
+</div>
+<div class="row mt-5">
+  <div class="col-2">
+    <%= link_to "退会しない", customer_path(current_customer), class: "btn btn-primary" %>
+  </div>
+  <div class="col-2">
+    <%= link_to "退会する", withdrawal_path, method: :patch, data: { confilm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+  </div>
+</div>
+</div>

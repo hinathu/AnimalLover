@@ -1,4 +1,41 @@
-<%= render 'public/header' %>
+<div class="container">
+  <%= render 'public/header' %>
 
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<!--更新できなかった時のエラーメッセージ-->
+<div class="row d-flex justify-content-center">
+  <% if flash[:customer_updated_error] %>
+    <span class="text-danger"><%= flash[:customer_updated_error] %></span>
+  <% end %>
+</div>
+
+<!--マイページ編集画面-->
+
+<div class="row mt-5">
+  <h3>マイページ編集</h3>
+</div>
+
+<%= form_with model: @customer, url: customer_path, method: :patch do |f| %>
+<table class="table table-borderless">
+  <tbody>
+    <tr>
+      <td width="200">ニックネーム</td>
+      <td width="300"><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td>メールアドレス</td>
+      <td><%= f.email_field :email %></td>
+    </tr>
+    <tr>
+      <td>プロフィール画像</td>
+      <td><%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><%= f.submit '編集内容を保存', class: "btn btn-success" %></td>
+      <td><%= link_to "退会する", unsubscribe_path, class: "btn btn-danger" %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>
+
+</div>

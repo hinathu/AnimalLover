@@ -1,2 +1,21 @@
-<h1>Admin::Items#show</h1>
-<p>Find me in app/views/admin/items/show.html.erb</p>
+<!--投稿詳細ページ-->
+<div class="container my-5">
+  <%= render 'admin/header' %>
+
+  <div class="row no-gutters">
+    <div class="mt-5 col-lg-3">
+      <!--ユーザー名_部分テンプレート(_user)-->
+      <%= render 'public/customers/user', customer: @customer %>
+    </div>
+    
+    <div class = "form-group">
+      <div class="col-lg-8 offset-md-1">
+        <div><%= image_tag @item.get_image(300,300) %></div>
+        <div><strong><%= @item.name %></strong></div>
+        <div>種別：<%= @item.category %></div>
+        <div><%= @item.body %></div>
+       </div>
+    </div>
+  </div>
+
+</div>

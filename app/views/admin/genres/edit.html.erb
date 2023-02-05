@@ -1,2 +1,24 @@
-<h1>Admin::Genres#edit</h1>
-<p>Find me in app/views/admin/genres/edit.html.erb</p>
+<!--ジャンル編集画面-->
+<div class="container my-5">
+  <%= render 'admin/header' %>
+
+  <div class="row mt-5">
+      <h3>ジャンル編集</h3>
+  </div>
+
+  <div class="row mt-5">
+      <div class="row d-flex justify-content-center">
+        <% if flash[:genre_created_error] %>
+          <span class="text-danger"><%= flash[:genre_created_error] %></span>
+        <% end %>
+      </div>
+  </div>
+  <div class="row">
+    <%= form_with model: @genre, url: admin_genre_path(@genre.id), method: :patch do |f| %>
+      <div class="form-group">
+        ジャンル名 <%= f.text_field :name %>
+        <%= f.submit '保存', class: "btn btn-success mx-auto" %>
+      </div>
+    <% end %>
+  </div>
+</div>

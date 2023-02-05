@@ -1,2 +1,51 @@
-<h1>Admin::Genres#index</h1>
-<p>Find me in app/views/admin/genres/index.html.erb</p>
+<!--ジャンル一覧・追加画面-->
+
+<div class="container my-5">
+
+  <%= render 'admin/header' %>
+
+  <div class="row mt-5">
+      <h3>ジャンル一覧・追加</h3>
+  </div>
+
+  <div class="row mt-5">
+    <div class="offset-sm-1 col-sm-4">
+      <div class="row d-flex justify-content-center">
+        <% if flash[:genre_created_error] %>
+          <span class="text-danger"><%= flash[:genre_created_error] %></span>
+        <% end %>
+       </div>
+      <div class="row">
+        <%= form_with model: @newgenre, url: admin_genres_path, method: :post do |f| %>
+          <div class="form-group">
+            ジャンル名 <%= f.text_field :name %>
+            <%= f.submit "新規登録", class: "ml-3 btn btn-success" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-4 ml-2">
+      <table class="table table-striped text-center">
+        <thead>
+          <tr>
+            <th>ジャンル</th>
+            <th colspan="1"></th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <% @genres.each do |genre| %>
+         <tr>
+            <td><%= genre.name %></td>
+            <td><%= link_to "編集", edit_admin_genre_path(genre), class: "btn btn-success" %></td>
+            <td><%= link_to "削除", admin_genre_path(genre), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger" %></td>
+         </tr>
+            <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

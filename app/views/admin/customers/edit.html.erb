@@ -1,2 +1,46 @@
-<h1>Admin::Customers#edit</h1>
-<p>Find me in app/views/admin/customers/edit.html.erb</p>
+<!--会員情報編集画面-->
+<div class="container my-5">
+  <%= render 'admin/header' %>
+
+<div class="row mt-5">
+  <h3><%= @customer.name %>さんの会員編集</h3>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <% if flash[:customer_updated_error] %>
+    <span class="text-danger"><%= flash[:customer_updated_error] %></span>
+  <% end %>
+</div>
+
+<div class="row mt-5 flex-column">
+  <%= form_with model: @customer, url: admin_customer_path, method: :patch do |f| %>
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        <td width="120">会員Id</td>
+        <td width="300"><%= @customer.id %></td>
+      </tr>
+      <tr>
+        <td>ニックネーム</td>
+        <td><%= f.text_field :name %></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td><%= f.email_field :email %></td>
+      </tr>
+      <tr>
+        <td>会員ステータス</td>
+        <td>
+          <%= f.radio_button :is_deleted, :false %> <span class="text-primary mr-5">有効</span>
+          <%= f.radio_button :is_deleted, :true %> <span class="text-danger">退会</span>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= f.submit '変更を保存', class: "btn btn-success mx-auto" %></td>
+      </tr>
+    </tbody>
+  </table>
+  <% end %>
+</div>
+</div>
