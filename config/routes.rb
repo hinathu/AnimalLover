@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 # ゲストログイン機能
 devise_scope :customer do
   post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  # delete 'customers/guest_sign_out', to: 'public/sessions#destroy_all', as: 'destroy_all_guest_sign_out'
 end
 
 # 顧客用

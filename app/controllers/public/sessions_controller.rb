@@ -3,6 +3,7 @@
 class Public::SessionsController < Devise::SessionsController
   
   before_action :customer_state, only: [:create]
+  before_action :delete_guest_user_item, only: [:destroy]
 
   def after_sign_in_path_for(resource)
     customer_path(current_customer.id)
@@ -19,6 +20,14 @@ class Public::SessionsController < Devise::SessionsController
   end
   
   protected
+  
+  # ログアウトするときにゲストユーザーだった場合は、投稿・いいねしたitemを全て削除する
+  def delete_guest_user_item
+    if current_customer.email == 'guest@test'
+      current_customer.items.destroy_all
+      current_customer.favorites.destroy_all
+    end
+  end
   
   # 退会しているかを判断するメソッド
   def customer_state

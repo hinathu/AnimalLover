@@ -11,6 +11,9 @@ class Public::ItemsController < ApplicationController
   def create
     @newitem = Item.new(item_params)
     @newitem.customer = current_customer
+    # if @newitem.customer.email == 'guest@test'
+    #   flash[:item_created_error] = "ゲストユーザーは投稿できません。"
+    #   render :new
     if @newitem.save!
       redirect_to item_path(@newitem)
     else

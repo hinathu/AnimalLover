@@ -15,6 +15,7 @@ class Public::CustomersController < ApplicationController
     @customer = current_customer
     if @customer.email == 'guest@test'
       flash[:customer_updated_error] = "ゲストユーザーは会員情報の編集ができません。"
+      render :edit
     elsif @customer.update(customer_params)
         redirect_to customer_path(current_customer.id)
     else
