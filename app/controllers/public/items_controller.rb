@@ -29,6 +29,12 @@ class Public::ItemsController < ApplicationController
   # 全ての投稿一覧
   def index
     @items = Item.page(params[:page]).per(8)
+    @genres = Genre.all
+    if params[:genre_id].present?
+      #presentメソッドでparams[:category_id]に値が含まれているか確認 => trueの場合下記を実行
+      @genre = Genre.find(params[:genre_id])
+      @items = @genre.items.page(params[:page]).per(8)
+    end
   end
 
   # データ編集

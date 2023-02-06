@@ -1,4 +1,8 @@
-<%= render 'public/header' %>
-
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+  <%= render 'public/header' %>
+  
+  <div>
+    <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, method: :post %>
+  </div>
+  
+</div>

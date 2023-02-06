@@ -3,9 +3,16 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_normal_customer, only: %i[update destroy]
 
   def after_sign_up_path_for(resource)
     customer_path(current_customer.id)
+  end
+  
+  def ensure_normal_customer
+    if resource.email == 'guest@test'
+      redirect_to top_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    end
   end
 
   protected

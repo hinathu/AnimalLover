@@ -12,6 +12,12 @@ class Public::SessionsController < Devise::SessionsController
     top_path
   end
   
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    redirect_to customer_path(current_customer.id)
+  end
+  
   protected
   
   # 退会しているかを判断するメソッド

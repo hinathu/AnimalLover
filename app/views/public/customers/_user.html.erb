@@ -7,12 +7,13 @@
       <table class="table">
         <tbody>
           <tr>
-            <th>ニックネーム</th>
-            <th><%= @customer.name %>さん</th>
+            <td>ニックネーム</td>
+            <td><%= @customer.name %>さん</td>
           </tr>
         </tbody>
       </table>
 
+  <!--ログインユーザーのみマイページ編集用のリンク先表示-->
       <div class="row">
         <div class="col text-center">
           <% if @customer == current_customer %>
@@ -23,6 +24,5 @@
           <% end %>
         </div>
       </div>
-      
     </div>
   </div>
