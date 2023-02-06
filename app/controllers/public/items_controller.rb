@@ -11,9 +11,6 @@ class Public::ItemsController < ApplicationController
   def create
     @newitem = Item.new(item_params)
     @newitem.customer = current_customer
-    # if @newitem.customer.email == 'guest@test'
-    #   flash[:item_created_error] = "ゲストユーザーは投稿できません。"
-    #   render :new
     if @newitem.save!
       redirect_to item_path(@newitem)
     else
@@ -37,6 +34,16 @@ class Public::ItemsController < ApplicationController
       #presentメソッドでparams[:category_id]に値が含まれているか確認 => trueの場合下記を実行
       @genre = Genre.find(params[:genre_id])
       @items = @genre.items.page(params[:page]).per(8)
+    end
+  end
+  
+   # キーワード検索機能
+  def search
+    if params[:keyword].present?
+      @items = Item.where('category LIKE ? OR name LIKE ? OR body LIKE ?', "%#{params[:keyword]}%", "%#{params[:keyword]}%", "%#{params[:keyword]}%").page(params[:page]).per(8)
+      @keyword = params[:keyword]
+    else
+      @items = Item.page(params[:page]).per(8)
     end
   end
 

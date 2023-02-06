@@ -56,6 +56,11 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   
       # comments
       resources :comments, only: [:create, :destroy]
+      
+      # 検索機能
+      collection do
+        get 'search'
+      end
     end 
     
     root to: "homes#top", as: "top"
