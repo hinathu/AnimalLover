@@ -27,7 +27,7 @@ class Item < ApplicationRecord
   # キーワード検索機能
   def self.search(search)
     if search != ""
-      Item.where('category LIKE(?) OR name LIKE(?) OR body LIKE(?)', "%#{search}%", "%#{search}%", "%#{search}%")
+      Item.joins(:genre).where('category LIKE(?) OR items.name LIKE(?) OR body LIKE(?) OR genres.name LIKE(?)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       Item.all
     end

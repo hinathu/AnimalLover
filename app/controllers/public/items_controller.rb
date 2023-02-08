@@ -42,6 +42,7 @@ class Public::ItemsController < ApplicationController
    # キーワード検索機能
   def search
     @items = Item.search(params[:keyword]).order(created_at: :desc).page(params[:page]).per(8)
+    @keyword = params[:keyword]
   end
 
   # 投稿データ編集
