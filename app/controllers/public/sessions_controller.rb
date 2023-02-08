@@ -26,6 +26,7 @@ class Public::SessionsController < Devise::SessionsController
     if current_customer.email == 'guest@test'
       current_customer.items.destroy_all
       current_customer.favorites.destroy_all
+      current_customer.comments.destroy_all
     end
   end
   

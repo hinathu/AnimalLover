@@ -1,9 +1,9 @@
-<!--投稿一覧-->
+<!--検索結果-->
 <div class="container my-5">
   <%= render 'admin/header' %>
 
 <div class="row mt-5">
-  <h3>投稿一覧</h3>
+  <h3>検索結果 "<%= @keyword %>"</h3>
 </div>
 
 <div class="row my-3">
@@ -14,33 +14,6 @@
       <%= f.submit "検索" %>
     <% end %>
     <%= link_to "クリア" , admin_items_path, class: "btn btn-outline-secondary mt-1" %>
-  </div>
-</div>
-
-<div class="row my-3">
-  <div class="col-2">
-    <table border="3">
-      <thead>
-        <tr>
-          <th>ジャンル検索</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <tr>
-          <td>
-            <%= link_to "全て", admin_items_path, class: "text-secondary" %>
-          </td>
-        </tr>
-        <% @genres.each do |genre| %>
-        <tr>
-          <td>
-            <%= link_to genre.name, admin_items_path(genre_id: genre.id), class: "text-secondary" %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 </div>
 
@@ -61,21 +34,10 @@
     <div>
       <%=link_to admin_customer_path(item.customer) do %>
         <%= item.customer.name %>
-      <% end %>さん
-    </div>
-    <div>
-      <% if item.is_draft %>
-        <span class="text-success">
-          <strong>公開</strong>
-        </span>
-      <% else %>
-        <span class="text-danger">
-          <strong>非公開</strong>
-        </span>
       <% end %>
     </div>
-  </div>
-  <% end %>
+    </div>
+    <% end %>
 </div>
 
 <div class="container">
@@ -84,6 +46,6 @@
 	 	<%= paginate @items %>
 	 </div>
 	</div>
- </div>
+</div>
 
 </div>

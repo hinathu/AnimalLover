@@ -31,6 +31,7 @@ class Public::ItemsController < ApplicationController
   def index
     @items = Item.where(is_draft: 'true').page(params[:page]).per(8)
     @genres = Genre.all
+    # ジャンル検索機能
     if params[:genre_id].present?
       #presentメソッドでparams[:category_id]に値が含まれているか確認 => trueの場合下記を実行
       @genre = Genre.find(params[:genre_id])

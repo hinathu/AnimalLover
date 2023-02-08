@@ -16,7 +16,10 @@
     <div class="mt-5 col-lg-3">
       <!--ユーザー名_部分テンプレート(_user)-->
       <%= render 'public/customers/user', customer: @customer %></br>
-      <div class="row">
+      <!--新規投稿機能-->
+      <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %></br>
+      <!--コメント機能-->
+      <div class="row mt-3">
     <%= form_with model: [@item, @comment] do |f| %>
       <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
       <%= f.submit "送信する" %>

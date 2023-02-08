@@ -11,11 +11,45 @@
     <div class = "form-group">
       <div class="col-lg-8 offset-md-1">
         <div><%= image_tag @item.get_image(300,300) %></div>
+        <div>♥<%= @item.favorites.count %> いいね</div>
         <div><strong><%= @item.name %></strong></div>
         <div>種別：<%= @item.category %></div>
         <div><%= @item.body %></div>
+        <div>
+          <% if @item.is_draft %>
+            <span class="text-secondary">
+              <strong>公開</strong>
+            </span>
+          <% else %>
+            <span class="text-danger">
+              <strong>非公開</strong>
+            </span>
+          <% end %>
+        </div>
+        <div><%= link_to "削除", admin_item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></div>
        </div>
     </div>
   </div>
 
+  <div class="row">
+     コメント件数：<%= @item.comments.count %>
+     <table class="table table-striped text-center">
+       <tbody>
+         <% @item.comments.each do |comment| %>
+           <tr>
+             <td><%= comment.comment %></td>
+             <td>
+               <%= link_to admin_customer_path(comment.customer) do %>
+                 <%= comment.customer.name %>さん
+                <% end %>
+             </td>
+             <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+             <td>
+                <%= link_to "削除", admin_item_comment_path(comment.item, comment), method: :delete %>
+             </td>
+           </tr>
+          <% end %>
+       </tbody>
+     </table>
+  </div>
 </div>

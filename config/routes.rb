@@ -29,7 +29,16 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     resources :genres, only: [:index, :create, :edit, :update, :destroy]
 
     #items
-    resources :items, only: [:index, :show, :edit, :update]
+    resources :items, only: [:index, :show, :edit, :update, :destroy] do
+      
+      # comments
+      resources :comments, only: [:destroy]
+      
+      # 検索機能
+      collection do
+        get 'search'
+      end
+    end
 
   end
 
@@ -64,7 +73,6 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     end 
     
     root to: "homes#top", as: "top"
-    get 'about' => 'homes#about', as: "about"
   end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
