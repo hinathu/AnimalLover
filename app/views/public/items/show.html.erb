@@ -2,6 +2,16 @@
 <div class="container my-5">
   <%= render 'public/header' %>
 
+<!--メッセージ-->
+  <div class="row d-flex justify-content-center">
+    <% if flash[:item_update] %>
+      <span class="text-primary"><%= flash[:item_update] %></span>
+    <% end %>
+    <% if flash[:item_create] %>
+      <span class="text-primary"><%= flash[:item_create] %></span>
+    <% end %>
+  </div>
+
   <div class="row no-gutters">
     <div class="mt-5 col-lg-3">
       <!--ユーザー名_部分テンプレート(_user)-->
@@ -38,8 +48,19 @@
         <div>種別：<%= @item.category %></div>
         <div><%= @item.body %></div>
         <% if @customer == current_customer %>
+          <div>
+            <% if @item.is_draft %>
+              <span class="text-primary">
+                <strong>公開</strong>
+              </span>
+            <% else %>
+              <span class="text-danger">
+                <strong>非公開</strong>
+              </span>
+            <% end %>
+          </div>
           <div><%= link_to "編集", edit_item_path(@item), class:"btn btn-success btn-block" %></div>
-          <div><%= link_to "削除", item_path(@item.id), method: :delete, "data-confirm" => "本当に消しますか？", class:"btn btn-danger" %></div>
+          <div><%= link_to "削除", item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></div>
         <% end %>
       </div>
     </div>

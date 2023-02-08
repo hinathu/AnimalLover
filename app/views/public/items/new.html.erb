@@ -4,7 +4,11 @@
     <h3>新規投稿</h3>
   </div>
 
+<!--メッセージ-->
   <div class="row d-flex justify-content-center">
+    <% if flash[:item_create] %>
+      <span class="text-primary"><%= flash[:item_create] %></span>
+    <% end %>
     <% if flash[:item_created_error] %>
       <span class="text-danger"><%= flash[:item_created_error] %></span>
     <% end %>
@@ -34,8 +38,17 @@
           <td><%= f.text_area :body %></td>
         </tr>
         <tr>
+          <td>ステータス</td>
+          <td>
+            <%= f.radio_button :is_draft, :true %> <span>公開</span>
+            <%= f.radio_button :is_draft, :false %> <span>非公開</span>
+          </td>
+        </tr>
+        <tr>
           <td></td>
-          <td><%= f.submit '投稿する', class: "btn btn-success mt-3 mx-auto" %></td>
+          <td>
+            <%= f.submit '保存する', class: "btn btn-success" %>
+          </td>
         </tr>
         </tbody>
     </table>

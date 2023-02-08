@@ -1,6 +1,13 @@
 <div class="container">
   <%= render 'public/header' %>
-    
+
+<!--メッセージ-->
+  <div class="row d-flex justify-content-center">
+    <% if flash[:item_create] %>
+      <span class="text-primary"><%= flash[:item_create] %></span>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="mt-5 col-md-3">
       <!--ユーザー名_部分テンプレート(_user)-->
@@ -22,6 +29,7 @@
               <th>ペットのお名前</th>
               <th>ペットの種類</th>
               <th>コメント件数</th>
+              <th>ステータス</th>
             </tr>
           </thead>
           <tbody>
@@ -37,6 +45,17 @@
                 <td>
                   <%= item.comments.count %>件</br>
                   ♡<%= item.favorites.count %> いいね
+                </td>
+                <td>
+                  <% if item.is_draft %>
+                    <span class="text-primary">
+                      <strong>公開</strong>
+                    </span>
+                  <% else %>
+                    <span class="text-danger">
+                      <strong>非公開</strong>
+                    </span>
+                <% end %>
                 </td>
               </tr>
             <% end %>

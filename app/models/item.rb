@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   validates :category, presence: true
   validates :body, presence: true
   
+  # 投稿画像
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -18,8 +19,18 @@ class Item < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
   
+  # いいね機能
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
+  end
+
+  # キーワード検索機能
+  def self.search(search)
+    if search != ""
+      Item.where('category LIKE(?) OR name LIKE(?) OR body LIKE(?)', "%#{search}%", "%#{search}%", "%#{search}%")
+    else
+      Item.all
+    end
   end
   
 end
