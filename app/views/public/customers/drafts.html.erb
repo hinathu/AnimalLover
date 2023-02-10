@@ -1,13 +1,6 @@
 <div class="container">
   <%= render 'public/header' %>
 
-<!--メッセージ-->
-  <div class="row d-flex justify-content-center">
-    <% if flash[:item_create] %>
-      <span class="text-primary"><%= flash[:item_create] %></span>
-    <% end %>
-  </div>
-
   <div class="row mt-5">
     <div class="col-md-3">
       <div class= "row">
@@ -22,27 +15,11 @@
           <%= link_to "お気に入り", favorites_customer_path(@customer), class: "btn btn-info" %>
         </div>
       </div>
-      <div class= "row mt-3">
-        <div class="col">
-          <!--下書き一覧へのリンク先-->
-          <% if @customer == current_customer %>
-            <%= link_to "下書き一覧", drafts_customer_path(@customer), class: "btn btn-info" %>
-          <% end %>
-        </div>
-      </div>
     </div>
-
-<!--登録者の投稿一覧-->
+        
+  <!--下書き一覧-->
     <div class="col-md-9">
-      <div class="row">
-        <div class="col-md-3">
-          <h4>投稿一覧</h4>
-        </div>
-        <div class="col-md-3 col-md-offset-3 ml-5">
-          <!--新規投稿機能-->
-          <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %>
-        </div>
-      </div>
+      <h4>下書き一覧</h4>
     
       <table class="table">
         <thead>

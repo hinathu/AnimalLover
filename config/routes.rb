@@ -49,6 +49,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     resources :customers, only: [:index, :show, :edit, :update] do
       member do 
         get :favorites
+        get :drafts
       end
     end
     

@@ -3,19 +3,23 @@
   <%= render 'public/header' %>
 
   <div class="row mt-3">
-  <span class="text-center">
-    このサイトは、皆さんの自慢のペットの画像投稿掲示板になります。</br>
-    ゲストログインでも閲覧や投稿、いいね、コメントをすることができますが、</br>
-    ログアウトをした際にデータは削除されます。</br>
-  </span>
+    <div class="col-md-12">
+      <p class="text-center">
+        このサイトは、皆さんの自慢のペットの画像投稿掲示板になります。</br>
+        ゲストログインでも閲覧や投稿、いいね、コメントをすることができますが、</br>
+        ログアウトをした際にデータは削除されます。</br>
+      </p>
+    </div>
   </div>
   
   <!--ゲストログイン機能-->
-  <div class="row mt-3">
-    <span class="text-center">
-      <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, class:"btn btn-info", method: :post %>
-      <i class="fas fa-seedling"></i>
-    </span>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <p class="text-center">
+        <%= link_to 'ゲストログイン（閲覧用）', customers_guest_sign_in_path, class:"btn btn-info", method: :post %>
+        <i class="fas fa-seedling"></i>
+      </p>
+    </div>
   </div>
 
 </div>

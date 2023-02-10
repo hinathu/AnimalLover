@@ -4,7 +4,7 @@ class Public::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @items = Item.where(customer_id: @customer.id)
+    @items = Item.where(customer_id: @customer.id, is_draft: 'true')
   end
 
   def edit
@@ -47,6 +47,13 @@ class Public::CustomersController < ApplicationController
     favorites = Favorite.where(customer_id: @customer.id).pluck(:item_id)
     @favorite_items = Item.find(favorites)
   end
+  
+  # 下書き一覧
+  def drafts
+    @customer = current_customer
+    @items = Item.where(customer_id: @customer.id, is_draft: 'false')
+  end
+  
   
 # 登録データのストロングパラメータ
   private
