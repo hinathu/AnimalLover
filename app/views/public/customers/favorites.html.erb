@@ -1,47 +1,60 @@
 <div class="container">
-   <%= render 'public/header' %>
-   
-   <div class="row mt-5">
-    <h3><%= @customer.name %> さんのお気に入り一覧</h3>
-  </div>
+  <%= render 'public/header' %>
   
-  <div class="row mt-3">
-  <% @favorite_items.each do |item| %>
-
-  <div class="col-3 mt-3">
-    <%= link_to item_path(item) do %>
-      <%= image_tag item.get_image(150,150) %></br>
-    <span>
-      <%= item.name %>
-      <% end %>
-    </span></br>
-    <div>
-      コメント：<%= item.comments.count %>件</br>
-      <!--いいね機能-->
-        <div> 
-          <% if item.favorited_by?(current_customer) %>
-          <p>
-            <%= link_to item_favorites_path(item), method: :delete do %>
-              ♥<%= item.favorites.count %> いいね
-            <% end %>
-          </p>
-          <% else %>
-          <p>
-            <%= link_to item_favorites_path(item), method: :post do %>
-              ♡<%= item.favorites.count %> いいね
-            <% end %>
-          </p>
-        <% end %>
+  <div class="row mt-5">
+    <div class="col-md-3">
+      <div class= "row">
+        <div class="col">
+          <!--ユーザー名_部分テンプレート(_user)-->
+          <%= render 'user', customer: @customer %>
         </div>
-        <!---->
+      </div>
+      <div class= "row mt-3">
+        <div class="col">
+          <!--ユーザーがいいねした投稿一覧のリンク先-->
+          <%= link_to "お気に入り", favorites_customer_path(@customer), class: "btn btn-info" %>
+        </div>
+      </div>
     </div>
-    <div>
-      <%=link_to customer_path(item.customer) do %>
-        <%= item.customer.name %>
+  
+ <!--お気に入り一覧-->
+    <div class="col-md-9">
+      <h4><%= @customer.name %> さんのお気に入り一覧</h4>
+      <% @favorite_items.each do |item| %>
+
+      <%= link_to item_path(item) do %>
+        <%= image_tag item.get_image(150,150) %></br>
+      <span>
+        <%= item.name %>
+        <% end %>
+      </span></br>
+      <div>
+        コメント：<%= item.comments.count %>件</br>
+        <!--いいね機能-->
+          <div> 
+            <% if item.favorited_by?(current_customer) %>
+            <p>
+              <%= link_to item_favorites_path(item), method: :delete do %>
+                ♥<%= item.favorites.count %> いいね
+              <% end %>
+            </p>
+            <% else %>
+            <p>
+              <%= link_to item_favorites_path(item), method: :post do %>
+                ♡<%= item.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+          </div>
+          <!---->
+      </div>
+      <div>
+        <%=link_to customer_path(item.customer) do %>
+          <%= item.customer.name %>
+        <% end %>
+      </div>
       <% end %>
     </div>
-    </div>
-    <% end %>
-</div>
+  </div>
   
 </div>
