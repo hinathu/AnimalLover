@@ -2,27 +2,27 @@
 <div class="container my-5">
   <%= render 'public/header' %>
 
-<div class="row mt-5">
+<div class="mt-3">
   <h3>投稿一覧</h3>
 </div>
 
 <div class="row my-3">
-  <div class="col-6">
+  <div class="col-3">
     <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %>
   </div>
-  <div class="col-6">
+  <div class="col-9">
     <!--検索機能-->
     <%= form_with url: search_items_path, local: true, method: :get do |f| %>
       <%= f.text_field :keyword %>
       <%= f.submit "検索" %>
+      <%= link_to "クリア" , items_path, class: "btn btn-outline-secondary" %>
     <% end %>
-    <%= link_to "クリア" , items_path, class: "btn btn-outline-secondary mt-1" %>
   </div>
 </div>
 
 <!--ジャンル検索機能-->
-<div class="row my-3">
-  <div class="col-2">
+<div class="row my-2">
+  <div class="col-3">
     <table border="3">
       <thead>
         <tr>
@@ -46,46 +46,11 @@
       </tbody>
     </table>
   </div>
-</div>
-
-<!--投稿一覧-->
-<div class="row">
-  <% @items.each do |item| %>
-
-  <div class="col-3 mt-3">
-    <%= link_to item_path(item) do %>
-      <%= image_tag item.get_image(150,150) %></br>
-    <span>
-      <%= item.name %>
-      <% end %>
-    </span></br>
-    <div>
-      コメント：<%= item.comments.count %>件</br>
-      <!--いいね機能-->
-        <div> 
-          <% if item.favorited_by?(current_customer) %>
-          <p>
-            <%= link_to item_favorites_path(item), method: :delete do %>
-              ♥<%= item.favorites.count %> いいね
-            <% end %>
-          </p>
-          <% else %>
-          <p>
-            <%= link_to item_favorites_path(item), method: :post do %>
-              ♡<%= item.favorites.count %> いいね
-            <% end %>
-          </p>
-        <% end %>
-        </div>
-        <!---->
-    </div>
-    <div>
-      <%=link_to customer_path(item.customer) do %>
-        <%= item.customer.name %>
-      <% end %>さん
-    </div>
-    </div>
-    <% end %>
+  
+  <!--投稿一覧_部分テンプレート(_item)-->
+  <div class="col-9">
+    <%= render 'item', items: @items %>
+  </div>
 </div>
 
 <div class="container">

@@ -1,0 +1,32 @@
+<div class="row">
+    <% items.each do |item| %>
+    <div class="col-md-4">
+      <div>
+        <%= link_to item_path(item) do %>
+          <%= image_tag item.get_image(150,150) %></br>
+          <%= item.name %>
+        <% end %>
+      </div>
+      <div>
+        コメント：<%= item.comments.count %>件
+      </div>
+      <div>
+        <!--いいね機能-->
+        <% if item.favorited_by?(current_customer) %>
+          <%= link_to item_favorites_path(item), method: :delete do %>
+            ♥<%= item.favorites.count %> いいね
+          <% end %>
+        <% else %>
+          <%= link_to item_favorites_path(item), method: :post do %>
+            ♡<%= item.favorites.count %> いいね
+          <% end %>
+        <% end %>
+      </div>
+      <div>
+        <%=link_to customer_path(item.customer) do %>
+          <%= item.customer.name %>
+        <% end %>さん
+      </div>
+    </div>
+    <% end %>
+  </div>
