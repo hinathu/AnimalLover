@@ -12,82 +12,97 @@
     <% end %>
   </div>
 
-  <div class="row no-gutters mt-5">
-    <div class="col-lg-3">
-      <!--ユーザー名_部分テンプレート(_user)-->
-      <%= render 'public/customers/user', customer: @customer %></br>
-      <!--新規投稿機能-->
-      <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %></br>
-      <!--コメント機能-->
-    <%= form_with model: [@item, @comment] do |f| %>
-      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
-    <% end %>
-    </div>
-    
-    <div class = "form-group col-lg-9">
-      <div class="col-lg-8 offset-md-1">
-        <div><%= image_tag @item.get_image(300,300) %></div>
-        <!--いいね機能-->
-        <div> 
-          <% if @item.favorited_by?(current_customer) %>
-          <p>
-            <%= link_to item_favorites_path(@item), method: :delete do %>
-              ♥<%= @item.favorites.count %> いいね
-            <% end %>
-          </p>
-          <% else %>
-          <p>
-            <%= link_to item_favorites_path(@item), method: :post do %>
-              ♡<%= @item.favorites.count %> いいね
-            <% end %>
-          </p>
-        <% end %>
-        </div>
-        <!---->
-        <div><strong><%= @item.name %></strong></div>
-        <div>種別：<%= @item.category %></div>
-        <div><%= @item.body %></div>
-        <% if @customer == current_customer %>
-          <div>
-            <% if @item.is_draft %>
-              <span class="text-primary">
-                <strong>公開</strong>
-              </span>
-            <% else %>
-              <span class="text-danger">
-                <strong>非公開</strong>
-              </span>
-            <% end %>
-          </div>
-          <div><%= link_to "編集", edit_item_path(@item), class:"btn btn-success btn-block" %></div>
-          <div><%= link_to "削除", item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></div>
+  <div class="row mt-3">
+    <div class="col-4">
+      <div><!--ユーザー名_部分テンプレート(_user)-->
+        <%= render 'public/customers/user', customer: @customer %>
+      </div></br>
+      <div><!--新規投稿機能-->
+        <%= link_to "新規投稿", new_item_path, class: "btn btn-success" %>
+      </div></br>
+      <div><!--コメント機能-->
+        <%= form_with model: [@item, @comment] do |f| %>
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.submit "送信する" %>
         <% end %>
       </div>
     </div>
-   </div>
-   
-   <div class="row">
-     コメント件数：<%= @item.comments.count %>
-     <table class="table table-striped text-center">
-       <tbody>
-         <% @item.comments.each do |comment| %>
-           <tr>
-             <td><%= comment.comment %></td>
-             <td>
-               <%= link_to customer_path(comment.customer) do %>
-                 <%= comment.customer.name %>さん
+    
+    <div class="col-8">
+      <table>
+        <tbody>
+          <tr><!--画像表示-->
+            <td colspan="2"><%= image_tag @item.get_image(300,300) %></td>
+          </tr>
+          <tr><!--いいね機能-->
+            <td colspan="2">
+              <% if @item.favorited_by?(current_customer) %>
+                <%= link_to item_favorites_path(@item), method: :delete do %>
+                  ♥<%= @item.favorites.count %> いいね
                 <% end %>
-             </td>
-             <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
-             <td>
-                <% if comment.customer == current_customer %>
-                 <%= link_to "削除", item_comment_path(comment.item, comment), method: :delete %>
+              <% else %>
+                <%= link_to item_favorites_path(@item), method: :post do %>
+                  ♡<%= @item.favorites.count %> いいね
                 <% end %>
-             </td>
-           </tr>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>ペット名前</td>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr>
+            <td>種別</td>
+            <td><%= @item.category %></td>
+          </tr>
+          <tr><!--本文-->
+            <td><%= @item.body %></td>
+          </tr>
+          <% if @customer == current_customer %>
+          <tr>
+            <td>ステータス</td>
+            <td>
+              <% if @item.is_draft %>
+                <span class="text-primary">
+                  <strong>公開</strong>
+                </span>
+              <% else %>
+                <span class="text-danger">
+                  <strong>非公開</strong>
+                </span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td><%= link_to "編集", edit_item_path(@item), class:"btn btn-success" %></td>
+            <td><%= link_to "削除", item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %></td>
+          </tr>
           <% end %>
-       </tbody>
-     </table>
-  </div>
+        </tbody>
+      </table>
+      <div class="row mt-5">
+       コメント件数：<%= @item.comments.count %>
+       <table class="table table-striped text-center">
+         <tbody>
+           <% @item.comments.each do |comment| %>
+             <tr>
+               <td><%= comment.comment %></td>
+               <td>
+                 <%= link_to customer_path(comment.customer) do %>
+                   <%= comment.customer.name %>さん
+                  <% end %>
+               </td>
+               <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+               <td>
+                  <% if comment.customer == current_customer %>
+                   <%= link_to "削除", item_comment_path(comment.item, comment), method: :delete %>
+                  <% end %>
+               </td>
+             </tr>
+            <% end %>
+           </tbody>
+         </table>
+      </div>
+    </div>
+   </div>
 </div>
