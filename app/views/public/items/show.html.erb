@@ -56,7 +56,7 @@
             <td><%= @item.category %></td>
           </tr>
           <tr><!--本文-->
-            <td><%= @item.body %></td>
+            <td colspan="2"><%= @item.body %></td>
           </tr>
           <% if @customer == current_customer %>
           <tr>
@@ -64,11 +64,11 @@
             <td>
               <% if @item.is_draft %>
                 <span class="text-primary">
-                  <strong>公開</strong>
+                  <strong>公開中</strong>
                 </span>
               <% else %>
                 <span class="text-danger">
-                  <strong>非公開</strong>
+                  <strong>非公開中</strong>
                 </span>
               <% end %>
             </td>

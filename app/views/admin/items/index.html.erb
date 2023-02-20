@@ -2,23 +2,12 @@
 <div class="container my-5">
   <%= render 'admin/header' %>
 
-<div class="row mt-5">
+<div class="mt-3">
   <h3>投稿一覧</h3>
 </div>
 
 <div class="row my-3">
-  <div class="pull-right">
-    <!--検索機能-->
-    <%= form_with url: search_admin_items_path, local: true, method: :get do |f| %>
-      <%= f.text_field :keyword %>
-      <%= f.submit "検索" %>
-    <% end %>
-    <%= link_to "クリア" , admin_items_path, class: "btn btn-outline-secondary mt-1" %>
-  </div>
-</div>
-
-<div class="row my-3">
-  <div class="col-2">
+  <div class="col-3">
     <table border="3">
       <thead>
         <tr>
@@ -42,7 +31,16 @@
       </tbody>
     </table>
   </div>
+  <div class="col-9">
+    <!--検索機能-->
+    <%= form_with url: search_admin_items_path, local: true, method: :get do |f| %>
+      <%= f.text_field :keyword %>
+      <%= f.submit "検索" %>
+      <%= link_to "クリア" , admin_items_path, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
 </div>
+
 
 <div class="row">
   <% @items.each do |item| %>
@@ -66,11 +64,11 @@
     <div>
       <% if item.is_draft %>
         <span class="text-success">
-          <strong>公開</strong>
+          <strong>公開中</strong>
         </span>
       <% else %>
         <span class="text-danger">
-          <strong>非公開</strong>
+          <strong>非公開中</strong>
         </span>
       <% end %>
     </div>
