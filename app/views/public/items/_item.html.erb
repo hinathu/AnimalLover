@@ -1,7 +1,7 @@
 <!--投稿一覧の部分テンプレート-->
 <div class="row">
     <% items.each do |item| %>
-    <div class="col-4">
+    <div class="col-3">
       <div>
         <%= link_to item_path(item) do %>
           <%= image_tag item.get_image(150,150) %></br>
