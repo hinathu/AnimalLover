@@ -22,7 +22,7 @@
         <% @customers.each do |customer| %>
         <tr>
           <td><%= customer.id %></td>
-          <td><%= image_tag customer.profile_image, size: "80x80" %></td>
+          <td><%= image_tag customer.get_profile_image(150,150) %></td>
           <td>
             <%= link_to admin_customer_path(customer.id) do %>
             <%= customer.name %>
