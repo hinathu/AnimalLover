@@ -8,70 +8,68 @@
       <%= render 'public/customers/user', customer: @customer %>
     </div>
     
-    <div class = "form-group">
-      <div class="col-8">
-        <table>
-          <tbody>
-            <tr><!--画像表示-->
-              <td colspan="2"><%= image_tag @item.get_image(300,300) %></td>
-            </tr>
-            <tr>
-              <td colspan="2">♥<%= @item.favorites.count %> いいね</td>
-            </tr>
-            <tr>
-              <td>ペットの名前</td>
-              <td><%= @item.name %></td>
-            </tr>
-            <tr>
-              <td>種別</td>
-              <td><%= @item.category %></td>
-            </tr>
-            <tr>
-              <td>ステータス</td>
-              <td>
-                <% if @item.is_draft %>
-                  <span class="text-success">
-                    <strong>公開中</strong>
-                  </span>
-                <% else %>
-                  <span class="text-danger">
-                    <strong>非公開中</strong>
-                  </span>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2"><%= @item.body %></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <%= link_to "削除", admin_item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="row mt-5">
-         コメント件数：<%= @item.comments.count %>
-           <table class="table table-striped text-center">
-             <tbody>
-               <% @item.comments.each do |comment| %>
-                 <tr>
-                   <td><%= comment.comment %></td>
-                   <td>
-                     <%= link_to admin_customer_path(comment.customer) do %>
-                       <%= comment.customer.name %>さん
-                      <% end %>
-                   </td>
-                   <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
-                   <td>
-                      <%= link_to "削除", admin_item_comment_path(comment.item, comment), method: :delete %>
-                   </td>
-                 </tr>
-                <% end %>
-             </tbody>
-           </table>
-        </div>
-       </div>
-    </div>
+    <div class="col-8">
+      <table>
+        <tbody>
+          <tr><!--画像表示-->
+            <td colspan="2"><%= image_tag @item.get_image(300,300) %></td>
+          </tr>
+          <tr>
+            <td colspan="2">♥<%= @item.favorites.count %> いいね</td>
+          </tr>
+          <tr>
+            <td>ペットの名前</td>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr>
+            <td>種別</td>
+            <td><%= @item.category %></td>
+          </tr>
+          <tr>
+            <td>ステータス</td>
+            <td>
+              <% if @item.is_draft %>
+                <span class="text-success">
+                  <strong>公開中</strong>
+                </span>
+              <% else %>
+                <span class="text-danger">
+                  <strong>非公開中</strong>
+                </span>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"><%= @item.body %></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <%= link_to "削除", admin_item_path(@item.id), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-danger" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row mt-5">
+       コメント件数：<%= @item.comments.count %>
+         <table class="table table-striped text-center">
+           <tbody>
+             <% @item.comments.each do |comment| %>
+               <tr>
+                 <td><%= comment.comment %></td>
+                 <td>
+                   <%= link_to admin_customer_path(comment.customer) do %>
+                     <%= comment.customer.name %>さん
+                    <% end %>
+                 </td>
+                 <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+                 <td>
+                    <%= link_to "削除", admin_item_comment_path(comment.item, comment), method: :delete %>
+                 </td>
+               </tr>
+              <% end %>
+           </tbody>
+         </table>
+      </div>
+     </div>
   </div>
 </div>
